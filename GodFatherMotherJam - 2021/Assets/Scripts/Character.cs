@@ -5,8 +5,11 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [Header("StaysOnScreen")]
-
-
+    public float timeCharacterStaysOnScreenMin;
+    public float timeCharacterStaysOnScreenMax;
+    private float _stayOnScreenTimer = 0;
+    private float _stayOnScreenTimerMax = 0;
+    private bool _hasDeterminedTimerDuration = false;
 
 
     [Header("Patrol")]
@@ -51,8 +54,9 @@ public class Character : MonoBehaviour
     {
         Move();
         LerpUpAndDown();
+        ReduceStayOnScreenTimer();
     }
-
+    #region patrol
     private void Move()
     {
         if (isStopped) return;
@@ -136,4 +140,23 @@ public class Character : MonoBehaviour
             _UpAndDownTimer = 0;
         }
     }
+    #endregion
+
+    #region stayOnScreen
+    private void ReduceStayOnScreenTimer()
+    {
+        if(!_hasDeterminedTimerDuration)
+        {
+            _stayOnScreenTimerMax = Random.Range(timeCharacterStaysOnScreenMin, timeCharacterStaysOnScreenMax);
+            _hasDeterminedTimerDuration = true;
+        }
+
+
+        _stayOnScreenTimer += Time.deltaTime;
+        if(_stayOnScreenTimer >= _stayOnScreenTimerMax)
+        {
+            //make character disappear or prep him for reutilisation
+        }
+    }
+    #endregion
 }

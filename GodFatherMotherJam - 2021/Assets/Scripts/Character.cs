@@ -90,7 +90,7 @@ public class Character : MonoBehaviour
         _currentPositionIndex = _positionsAvailable[random];
 
         //remove after assigning value to currentIndex to stop index from being 
-        _positionsAvailable.Remove(random);
+        _positionsAvailable.RemoveAt(random);
 
 
         if (positions[_currentPositionIndex].canStopHere)

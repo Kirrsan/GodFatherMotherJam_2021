@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public float GameDuration = 20;
     private float _currentTimer = 0;
     private bool _isGamePlaying = true;
+    
+
 
     [Header("Objectives")]
     public int numberOfStartObjectives = 4;
@@ -144,4 +146,7 @@ public class GameManager : MonoBehaviour
             //add new object to objective list? (check if it's by timer or just when one has been removed)
         }
     }
+
+    
+
 }

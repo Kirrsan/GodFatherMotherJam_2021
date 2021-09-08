@@ -182,7 +182,7 @@ public class Character : MonoBehaviour
         _stayOnScreenTimer += Time.deltaTime;
         if(_stayOnScreenTimer >= _stayOnScreenTimerMax)
         {
-            MakeObjectDisappear();
+            characterAnimator.SetTrigger("FadeOut");
         }
     }
     #endregion
@@ -190,7 +190,7 @@ public class Character : MonoBehaviour
 
     private void MakeObjectDisappear()
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
         OnCharacterDisappearance(this);
         OnCharacterDisappearance -= GameManager.Instance.RemoveCharFromList;
     }

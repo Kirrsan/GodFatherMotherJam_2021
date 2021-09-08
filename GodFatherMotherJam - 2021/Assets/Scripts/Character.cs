@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+
+    public ObjectInGame associatedObject;
+
     [Header("StaysOnScreen")]
     public float timeCharacterStaysOnScreenMin;
     public float timeCharacterStaysOnScreenMax;
@@ -11,9 +14,10 @@ public class Character : MonoBehaviour
     private float _stayOnScreenTimerMax = 0;
     private bool _hasDeterminedTimerDuration = false;
 
+    [Space]
 
     [Header("Patrol")]
-    public PatrolPoint[] positions;
+    private PatrolPoint[] positions = new PatrolPoint[12];
     public float speed = 1;
     public float distanceToBeOnPosition = 0.1f;
     private List<int> _positionsAvailable = new List<int>();
@@ -38,7 +42,12 @@ public class Character : MonoBehaviour
     private Vector3 _movementDirection;
     private Vector3 _startMovementPos;
 
+    public delegate void OnCharacterDisappearEvent(Character newChar);
+    public OnCharacterDisappearEvent OnCharacterDisappearance;
+
     // Start is called before the first frame update
+
+    //TODO :: erase this later
     void Start()
     {
         _startYPos = transform.position.y;
@@ -49,6 +58,11 @@ public class Character : MonoBehaviour
         NextPatrolStepToSelect();
     }
 
+    public void SetupCharacter(PatrolPoint[] patrolPointArray)
+    {
+        positions = patrolPointArray;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -56,6 +70,18 @@ public class Character : MonoBehaviour
         LerpUpAndDown();
         ReduceStayOnScreenTimer();
     }
+
+
+    private void OnEnable()
+    {
+        associatedObject.OnClick += MakeObjectDisappear;
+    }
+
+    private void OnDisable()
+    {
+        associatedObject.OnClick -= MakeObjectDisappear;
+    }
+
     #region patrol
     private void Move()
     {
@@ -105,8 +131,9 @@ public class Character : MonoBehaviour
                 shouldStop = true;
             }
         }
-
     }
+
+
     private void StartWaitCoroutine()
     {
         StartCoroutine(WaitForTime());
@@ -155,8 +182,17 @@ public class Character : MonoBehaviour
         _stayOnScreenTimer += Time.deltaTime;
         if(_stayOnScreenTimer >= _stayOnScreenTimerMax)
         {
-            //make character disappear or prep him for reutilisation
+            characterAnimator.SetTrigger("FadeOut");
         }
     }
     #endregion
+
+
+    private void MakeObjectDisappear()
+    {
+        Destroy(gameObject);
+        OnCharacterDisappearance(this);
+        OnCharacterDisappearance -= GameManager.Instance.RemoveCharFromList;
+    }
+
 }

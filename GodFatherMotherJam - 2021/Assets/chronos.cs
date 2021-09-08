@@ -8,7 +8,7 @@ public class chronos : MonoBehaviour
     public Text tictacText;
     public float timeMax;
     private float timer;
-    private float calculTimer;
+    public float calculTimer;
     void Start()
     {
         timer = Time.time;

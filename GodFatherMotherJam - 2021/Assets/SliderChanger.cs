@@ -5,38 +5,15 @@ using UnityEngine.UI;
 
 public class SliderChanger : MonoBehaviour
 {
-    public float timeRemaining;
-    private const float timerMax = 5f;
     public Slider slider;
-
-    
-    void Start()
+    public chronos timer;
+    private void Start()
     {
-        
+        slider.maxValue = timer.timeMax;
     }
-
-   
     void Update()
     {
-        slider.value = CalulateSliderValue();
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            timeRemaining = timerMax;
-        }
-        if (timeRemaining <= 0)
-        {
-            timeRemaining = 0;
-        }
-        else if (timeRemaining > 0)
-        {
-            timeRemaining -= Time.deltaTime;
-        }
-     
-    }
-
-    float CalulateSliderValue()
-    {
-       return (timeRemaining / timerMax);
+        slider.value = timer.calculTimer;
+        
     }
 }

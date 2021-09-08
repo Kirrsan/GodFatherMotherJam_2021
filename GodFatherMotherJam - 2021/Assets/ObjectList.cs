@@ -9,7 +9,8 @@ public class ObjectList : MonoBehaviour
     int totalObjet = 1;
     public int currentObjetIndex;
     //array pour contenir toute les armes
-    public GameObject[] Objets;
+    public GameObject[] Objets ;
+
     
     
     // Start is called before the first frame update

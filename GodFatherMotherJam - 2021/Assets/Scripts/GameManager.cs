@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("Objects")]
-    public ObjectContainer ObjecsContainerScript;
+    public ObjectContainer ObjectsContainerScript;
 
 
     [Header("Timer")]
@@ -17,7 +17,19 @@ public class GameManager : MonoBehaviour
 
     [Header("Objectives")]
     public int numberOfStartObjectives = 4;
+    public float timeToAddToAddedObjectivesCharacters = 5;
     private List<int> _objectiveList = new List<int>();
+    private List<ObjectWithCharacter> _objectIndexAvailable = new List<ObjectWithCharacter>();
+
+    private List<int> objectsAvailableForCharactersList = new List<int>();
+
+
+
+    private struct ObjectWithCharacter
+    {
+        public Character character;
+        public int ObjectIndex;
+    }
 
     [Header("Characters")]
     public GameObject[] charactersPrefabs;
@@ -38,6 +50,12 @@ public class GameManager : MonoBehaviour
 
     private float characterSpawnTimer = 0;
 
+    [Header("On Fail Click")]
+    public float _timeClickInteractionIsDisabledOnFail = 2;
+    private bool _disableObjectInteraction = false;
+
+
+
     private void Awake()
     {
         if(Instance == null)
@@ -53,19 +71,16 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetupObjectiveList();
         _currentTimer = GameDuration;
-    }
 
-    private void SetupObjectiveList()
-    {
-        for (int i = 0; i < numberOfStartObjectives; i++)
+        int numberOfObjectsTotal = ObjectsContainerScript.objet.Length;
+        for (int i = 0; i < numberOfObjectsTotal; i++)
         {
-            int random = Random.Range(0, ObjecsContainerScript.objet.Length);
-            _objectiveList.Add(random);
-            //UI manager gets sprite form the random int calculated;
+            objectsAvailableForCharactersList.Add(ObjectsContainerScript.objet[i].index);
         }
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -84,10 +99,10 @@ public class GameManager : MonoBehaviour
             GameFinished();
         }
     }
-
+    #region character
     private void SpawnCharactersTimer()
     {
-        if (_characterList.Count >= maxCharactersOnScene) return;
+        if (_characterList.Count >= maxCharactersOnScene || !_isGamePlaying) return;
 
 
         characterSpawnTimer += Time.deltaTime;
@@ -100,6 +115,8 @@ public class GameManager : MonoBehaviour
                 if(_numberOfCharactersSpawnedAtStart >= numberOfCharactersToSpawnAtStart)
                 {
                     _start = false;
+
+                    SetupObjectiveList();
                 }
                 characterSpawnTimer = 0;
             }
@@ -113,24 +130,128 @@ public class GameManager : MonoBehaviour
 
     private void SpawnCharacter()
     {
+        //a changer, on utilisera pas de prefabs, a la place, il va falloir faire du random pour déterminer les différentes parties du visage du character
         int random = Random.Range(0, charactersPrefabs.Length);
+
+
         int randomPos = Random.Range(0, placesToInstantiateCharacters.Length);
         Character newChar = Instantiate(charactersPrefabs[random], placesToInstantiateCharacters[randomPos].position, Quaternion.identity, charactersHolder).GetComponent<Character>();
         newChar.SetupCharacter(patrolPoints);
 
-        random = Random.Range(0, ObjecsContainerScript.objet.Length);
-        ObjectContainer.ObjectStruct objectToUse = ObjecsContainerScript.GetObjectWithIndex(random);
+        //get a random index from the available object index list
+        random = Random.Range(0, objectsAvailableForCharactersList.Count);
+
+
+
+        //setup char associated Object
+        ObjectContainer.ObjectStruct objectToUse = ObjectsContainerScript.GetObjectWithIndex(objectsAvailableForCharactersList[random]);
+        //remove that index until it is not on the scene anymore
+        objectsAvailableForCharactersList.RemoveAt(random);
+
+
+
         newChar.associatedObject.SetupObject(objectToUse.sprite, objectToUse.index);
+
+        //subscribe Remove char from list to an event that is launched when the character disappear
         newChar.OnCharacterDisappearance += RemoveCharFromList;
 
         _characterList.Add(newChar);
+
+
+        ObjectWithCharacter newObjectWithChar;
+        newObjectWithChar.ObjectIndex = objectToUse.index;  
+        newObjectWithChar.character = newChar;  
+        _objectIndexAvailable.Add(newObjectWithChar);
     }
+
+
 
     public void RemoveCharFromList(Character newChar)
     {
         _characterList.Remove(newChar);
+        objectsAvailableForCharactersList.Add(newChar.associatedObject.id);
+
+    }
+    #endregion
+
+    #region objective
+    public void CheckObject(int idToCheck)
+    {
+        if(_objectiveList.Contains(idToCheck))
+        {
+            //remove id and object from objective list
+            _objectiveList.Remove(idToCheck);
+
+            AddNewElementToObjectiveList();
+
+            //add score --> ScoreManager ?
+            //add new object to objective list? (check if it's by timer or just when one has been removed)
+        }
+        else
+        {
+            //make people unhappy
+            _disableObjectInteraction = true;
+            Debug.Log("Stop Interaction");
+            StartCoroutine(RestoreClickInteractionAfterTime());
+        }
     }
 
+    private void SetupObjectiveList()
+    {
+        for (int i = 0; i < numberOfStartObjectives; i++)
+        {
+            AddNewElementToObjectiveList();
+            //UI manager gets sprite form the random int calculated;
+
+            //Show objective sprite UI;
+        }
+    }
+
+    public void AddNewElementToObjectiveList()
+    {
+
+        List<ObjectWithCharacter> objWithChar = new List<ObjectWithCharacter>();
+
+        int indexAvailableListCount = _objectIndexAvailable.Count;
+        for (int i = indexAvailableListCount - 1; i >= 0; i--)
+        {
+            if (!_objectiveList.Contains(_objectIndexAvailable[i].ObjectIndex)) continue;
+
+            objWithChar.Add(_objectIndexAvailable[i]);
+            _objectIndexAvailable.Remove(_objectIndexAvailable[i]);
+        }
+
+        int random = Random.Range(0, _objectIndexAvailable.Count);
+
+
+        indexAvailableListCount = objWithChar.Count;
+        for (int i = 0; i < indexAvailableListCount; i++)
+        {
+            _objectIndexAvailable.Add(objWithChar[i]);
+        }
+
+        _objectiveList.Add(_objectIndexAvailable[random].ObjectIndex);
+
+        _objectIndexAvailable[random].character.AddTimeToStayOnScreenTimer(timeToAddToAddedObjectivesCharacters);
+        _objectIndexAvailable.RemoveAt(random);
+    }
+    #endregion
+
+    #region mouseInteraction
+    private IEnumerator RestoreClickInteractionAfterTime()
+    {
+        yield return new WaitForSeconds(_timeClickInteractionIsDisabledOnFail);
+        Debug.Log("Resume Interaction");
+        _disableObjectInteraction = false;
+    }
+
+    public bool GetDisableObjectInteraction()
+    {
+        return _disableObjectInteraction;
+    }
+    #endregion
+
+    #region gameFinished
     private void GameFinished()
     {
         _isGamePlaying = false;
@@ -138,13 +259,10 @@ public class GameManager : MonoBehaviour
         //add end screen behaviour here
     }
 
-    public void CheckObject(int idToCheck)
+    public bool GetIsGamePlaying()
     {
-        if(_objectiveList.Contains(idToCheck))
-        {
-            //remove id and object from objective list
-            //add score --> ScoreManager ?
-            //add new object to objective list? (check if it's by timer or just when one has been removed)
-        }
+        return _isGamePlaying;
     }
+    #endregion
+
 }

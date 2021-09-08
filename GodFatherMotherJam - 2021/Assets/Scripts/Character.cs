@@ -185,9 +185,14 @@ public class Character : MonoBehaviour
             characterAnimator.SetTrigger("FadeOut");
         }
     }
+
+    public void AddTimeToStayOnScreenTimer(float timeToAdd)
+    {
+        _stayOnScreenTimerMax += timeToAdd;
+    }
     #endregion
 
-
+    //called on onclick and on fadeOut animation end
     private void MakeObjectDisappear()
     {
         Destroy(gameObject);

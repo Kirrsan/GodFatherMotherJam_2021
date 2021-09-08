@@ -25,6 +25,8 @@ public class ObjectInGame : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (!GameManager.Instance.GetIsGamePlaying() || GameManager.Instance.GetDisableObjectInteraction()) return;
+
         CheckObject();
     }
 

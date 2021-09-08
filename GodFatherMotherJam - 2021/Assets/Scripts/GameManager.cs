@@ -98,15 +98,18 @@ public class GameManager : MonoBehaviour
             if(characterSpawnTimer >= timeBetweenStartCharacterSpawns)
             {
                 SpawnCharacter();
+                ++_numberOfCharactersSpawnedAtStart;
                 if(_numberOfCharactersSpawnedAtStart >= numberOfCharactersToSpawnAtStart)
                 {
                     _start = false;
                 }
+                characterSpawnTimer = 0;
             }
         }
         else if (characterSpawnTimer >= TimeBetweenCharacter)
         {
             SpawnCharacter();
+            characterSpawnTimer = 0;
         }
     }
 

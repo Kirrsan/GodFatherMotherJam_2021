@@ -13,8 +13,10 @@ public class GameManager : MonoBehaviour
     [Header("Timer")]
     public float GameDuration = 20;
     private float _currentTimer = 0;
-    private bool _isGamePlaying = true;
-
+    private bool _isGamePlaying = true;
+    
+
+
     [Header("Objectives")]
     public int numberOfStartObjectives = 4;
     public float timeToAddToAddedObjectivesCharacters = 5;
@@ -130,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnCharacter()
     {
-        //a changer, on utilisera pas de prefabs, a la place, il va falloir faire du random pour déterminer les différentes parties du visage du character
+        //a changer, on utilisera pas de prefabs, a la place, il va falloir faire du random pour dï¿½terminer les diffï¿½rentes parties du visage du character
         int random = Random.Range(0, charactersPrefabs.Length);
 
 

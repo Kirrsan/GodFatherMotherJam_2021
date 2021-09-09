@@ -228,8 +228,13 @@ public class GameManager : MonoBehaviour
     public void RemoveCharFromList(Character newChar)
     {
         _characterList.Remove(newChar);
-        objectsAvailableForCharactersList.Add(newChar.associatedObject.id);
 
+        ObjectWithCharacter newObjWithChar;
+        newObjWithChar.character = newChar;
+        newObjWithChar.ObjectIndex = newChar.associatedObject.id;
+
+        _objectIndexAvailable.Remove(newObjWithChar);
+        objectsAvailableForCharactersList.Add(newChar.associatedObject.id);
     }
     #endregion
 
@@ -274,7 +279,7 @@ public class GameManager : MonoBehaviour
     {
         _objectiveList.Remove(idToCheck);
 
-        return AddNewElementToObjectiveList();
+        return AddNewElementToObjectiveList(idToCheck);
     }
 
     private void RemoveObjectives(int numberOfObjectivesToRemove)
@@ -325,6 +330,67 @@ public class GameManager : MonoBehaviour
 
         return _objectiveList[_objectiveList.Count - 1];
     }
+
+    public int AddNewElementToObjectiveList(int lastObjectId)
+    {
+        Debug.Log(_objectIndexAvailable.Count + "Start object Available Count");
+
+        List<ObjectWithCharacter> objWithChar = new List<ObjectWithCharacter>();
+
+        int indexAvailableListCount = _objectIndexAvailable.Count;
+
+        //remove objects that are already in the objective list for the random
+        for (int i = indexAvailableListCount - 1; i >= 0; i--)
+        {
+            if (!_objectiveList.Contains(_objectIndexAvailable[i].ObjectIndex)) continue;
+
+            objWithChar.Add(_objectIndexAvailable[i]);
+            _objectIndexAvailable.Remove(_objectIndexAvailable[i]);
+        }
+        Debug.Log(objWithChar.Count + "Start  objWithChar Count");
+
+        int random = Random.Range(0, _objectIndexAvailable.Count);
+
+        //check if old objective object is still on the scene and add it to the list if it is
+        AddOldObjectiveIfCharacterStillInScene(lastObjectId);
+
+        indexAvailableListCount = objWithChar.Count;
+        for (int i = 0; i < indexAvailableListCount; i++)
+        {
+            _objectIndexAvailable.Add(objWithChar[i]);
+        }
+
+        Debug.Log(_objectIndexAvailable.Count + "objectAVailableCount        " + random + " random");
+
+        _objectiveList.Add(_objectIndexAvailable[random].ObjectIndex);
+
+        _objectIndexAvailable[random].character.AddTimeToStayOnScreenTimer(timeToAddToAddedObjectivesCharacters);
+        _objectIndexAvailable.RemoveAt(random);
+        Debug.Log(_objectiveList.Count - 1);
+
+
+        Debug.Log(_objectiveList.Count - 1);
+
+        return _objectiveList[_objectiveList.Count - 1];
+    }
+
+    private void AddOldObjectiveIfCharacterStillInScene(int oldObjectiveObjectId)
+    {
+        for (int i = 0; i < _characterList.Count; i++)
+        {
+            if (_characterList[i].associatedObject.id != oldObjectiveObjectId) continue;
+
+            ObjectWithCharacter newObjWithChar;
+            newObjWithChar.character = _characterList[i];
+            newObjWithChar.ObjectIndex = _characterList[i].associatedObject.id;
+
+
+            _objectIndexAvailable.Add(newObjWithChar);
+
+        }
+    }
+
+
     #endregion
 
     #region mouseInteraction

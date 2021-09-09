@@ -44,10 +44,30 @@ public class Character : MonoBehaviour
 
     [Header("RandomizedBodyParts")]
     public float temp;
+
     // liste de sprites pour chaque parties du corps
+    public Sprite[] hairAvailable;
+    public Sprite[] noseAvailable;
+    public Sprite[] eyesAvailable;
+    public Sprite[] earsAvailable;
+    public Sprite[] moustachesAvailable;
+    public Sprite[] mouthAvailable;
+    public Sprite[] eyebrowsAvailable;
+    public Sprite[] neckAvailable;
+    public Sprite[] clothesAvailable;
+    public Sprite[] headAvailable;
 
     // spriteRenderer de chaque partie du corps en public
-
+    public SpriteRenderer hairRenderer;
+    public SpriteRenderer noseRenderer;
+    public SpriteRenderer eyesRenderer;
+    public SpriteRenderer earsRenderer;
+    public SpriteRenderer moustachesRenderer;
+    public SpriteRenderer mouthRenderer;
+    public SpriteRenderer eyebrowsRenderer;
+    public SpriteRenderer neckRenderer;
+    public SpriteRenderer clothesRenderer;
+    public SpriteRenderer headRenderer;
 
     public delegate void OnCharacterDisappearEvent(Character newChar);
     public OnCharacterDisappearEvent OnCharacterDisappearance;
@@ -70,8 +90,28 @@ public class Character : MonoBehaviour
         positions = patrolPointArray;
 
         //random pour chaque liste des parties du corps
+        int randomHairIndex = Random.Range(0, hairAvailable.Length);
+        int randomNoseIndex = Random.Range(0, noseAvailable.Length);
+        int randomEyesIndex = Random.Range(0, eyesAvailable.Length);
+        int randomEarsIndex = Random.Range(0, earsAvailable.Length);
+        int randomMouthIndex = Random.Range(0, mouthAvailable.Length);
+        int randomMoustachesIndex = Random.Range(0, moustachesAvailable.Length);
+        int randomEyebrowsIndex = Random.Range(0, eyebrowsAvailable.Length);
+        int randomNeckIndex = Random.Range(0, neckAvailable.Length);
+        int randomClothesIndex = Random.Range(0, clothesAvailable.Length);
+        int randomHeadIndex = Random.Range(0, headAvailable.Length);
 
         //assigner le sprite au spriteRenderer correspondant grace à SpriteRenderer.sprite
+        hairRenderer.sprite = hairAvailable[randomHairIndex];
+        noseRenderer.sprite = noseAvailable[randomNoseIndex];
+        eyesRenderer.sprite = eyesAvailable[randomEyesIndex];
+        earsRenderer.sprite = earsAvailable[randomEarsIndex];
+        mouthRenderer.sprite = mouthAvailable[randomMouthIndex];
+        moustachesRenderer.sprite = moustachesAvailable[randomMoustachesIndex];
+        eyebrowsRenderer.sprite = eyebrowsAvailable[randomEyebrowsIndex];
+        neckRenderer.sprite = neckAvailable[randomNeckIndex];
+        clothesRenderer.sprite = clothesAvailable[randomClothesIndex];
+        headRenderer.sprite = headAvailable[randomHeadIndex];
 
 
     }

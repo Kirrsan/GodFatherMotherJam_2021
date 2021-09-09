@@ -50,6 +50,7 @@ public class UiManager : MonoBehaviour
         objectiveImageList[index].Image.sprite = GameManager.Instance.ObjectsContainerScript.objet[objectId].sprite;
         objectiveImageList[index].objectId = objectId;
         objectivesTimers[index] = GameManager.Instance.GetCurrentDifficultyLevel().objectivesTimer;
+        objectivesTimersSliders[index].maxValue = GameManager.Instance.GetCurrentDifficultyLevel().objectivesTimer;
     }
 
     public void SeekIndexAndSetNewObjectives(int objectId)

@@ -41,6 +41,7 @@ public class Character : MonoBehaviour
     private int _currentPositionIndex = 0;
     private Vector3 _movementDirection;
     private Vector3 _startMovementPos;
+    
 
     [Header("RandomizedBodyParts")]
     public float temp;
@@ -101,7 +102,7 @@ public class Character : MonoBehaviour
         int randomClothesIndex = Random.Range(0, clothesAvailable.Length);
         int randomHeadIndex = Random.Range(0, headAvailable.Length);
 
-        //assigner le sprite au spriteRenderer correspondant grace à SpriteRenderer.sprite
+        //assigner le sprite au spriteRenderer correspondant grace ï¿½ SpriteRenderer.sprite
         hairRenderer.sprite = hairAvailable[randomHairIndex];
         noseRenderer.sprite = noseAvailable[randomNoseIndex];
         eyesRenderer.sprite = eyesAvailable[randomEyesIndex];

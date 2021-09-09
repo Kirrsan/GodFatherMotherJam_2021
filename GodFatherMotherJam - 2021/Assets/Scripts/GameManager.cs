@@ -362,8 +362,6 @@ public class GameManager : MonoBehaviour
 
     public int AddNewElementToObjectiveList(int lastObjectId)
     {
-        Debug.Log(_objectIndexAvailable.Count + "Start object Available Count");
-
         List<ObjectWithCharacter> objWithChar = new List<ObjectWithCharacter>();
 
         int indexAvailableListCount = _objectIndexAvailable.Count;
@@ -376,7 +374,6 @@ public class GameManager : MonoBehaviour
             objWithChar.Add(_objectIndexAvailable[i]);
             _objectIndexAvailable.Remove(_objectIndexAvailable[i]);
         }
-        Debug.Log(objWithChar.Count + "Start  objWithChar Count");
 
         int random = Random.Range(0, _objectIndexAvailable.Count);
 
@@ -389,13 +386,10 @@ public class GameManager : MonoBehaviour
             _objectIndexAvailable.Add(objWithChar[i]);
         }
 
-        Debug.Log(_objectIndexAvailable.Count + "objectAVailableCount        " + random + " random");
-
         _objectiveList.Add(_objectIndexAvailable[random].ObjectIndex);
 
         _objectIndexAvailable[random].character.AddTimeToStayOnScreenTimer(timeToAddToAddedObjectivesCharacters);
         _objectIndexAvailable.RemoveAt(random);
-        Debug.Log(_objectiveList.Count - 1);
 
 
         Debug.Log(_objectiveList.Count - 1);

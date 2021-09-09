@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-
     public ObjectInGame associatedObject;
 
     [Header("StaysOnScreen")]

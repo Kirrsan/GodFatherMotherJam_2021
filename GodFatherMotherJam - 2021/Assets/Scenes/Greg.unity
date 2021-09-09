@@ -4278,7 +4278,7 @@ MonoBehaviour:
   - timeToChangeDifficulty: 10
     numberOfCharactersOnScreen: 5
     timeBetweenCharactersSpawns: 0
-    numbersOfObjectives: 3
+    numbersOfObjectives: 6
     objectivesTimer: 5
     characterSpeed: 10
     characterAnimatorSpeed: 1

@@ -79,8 +79,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip audioChrono = null;
     private AudioSource chrono_AudioSource;
 
-      [SerializeField] private AudioClip audioaudioPositiveHammer = null;
-    private AudioSource PositiveHammer_AudioSource;
+    [SerializeField] private AudioClip audioChronoStart = null;
+    public AudioSource chronostart_AudioSource;
+
+
+    [SerializeField] private AudioClip audioPositiveHammer = null;
+    
+
+    [SerializeField] private AudioClip audioNegativeHammer = null;
+
+    [SerializeField] private AudioClip audioAuctionner = null;
+    public AudioSource audioAuctionner_AudioSource;
+
 
     private void Awake()
     {
@@ -94,6 +104,7 @@ public class GameManager : MonoBehaviour
         }
 
         chrono_AudioSource = GetComponent<AudioSource>();
+      
     }
 
     // Start is called before the first frame update
@@ -108,7 +119,12 @@ public class GameManager : MonoBehaviour
             objectsAvailableForCharactersList.Add(ObjectsContainerScript.objet[i].index);
         }
 
+
         StartCoroutine(ShowObjectiveListAfterDelay());
+        
+        chronostart_AudioSource.clip = audioChronoStart;
+
+        audioAuctionner_AudioSource.clip = audioAuctionner;
     }
 
 
@@ -125,6 +141,8 @@ public class GameManager : MonoBehaviour
         if (!_isGamePlaying) return;
 
         _currentTimer -= Time.deltaTime;
+       // chronostart_AudioSource.time = 0;
+        //chronostart_AudioSource.Play();
 
         CheckForDifficulty();
         if(_currentTimer <= 0)
@@ -248,6 +266,8 @@ public class GameManager : MonoBehaviour
             UiManager.SeekIndexAndSetNewObjectives(idToCheck);
 
             ScoreManager.AddScore(ObjectsContainerScript.objet[idToCheck].goodObjectValue);
+            chrono_AudioSource.clip = audioPositiveHammer ;
+            chrono_AudioSource.Play();
         }
         else
         {
@@ -257,6 +277,8 @@ public class GameManager : MonoBehaviour
             _disableObjectInteraction = true;
             Debug.Log("Stop Interaction");
             StartCoroutine(RestoreClickInteractionAfterTime());
+            chrono_AudioSource.clip = audioNegativeHammer;
+            chrono_AudioSource.Play();
         }
     }
 

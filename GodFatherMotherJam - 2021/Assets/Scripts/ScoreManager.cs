@@ -20,12 +20,19 @@ public class ScoreManager : MonoBehaviour
 
     private int startValue = 0;
     private int endValue = 0;
+    private int oldValue = 0;
+    public int stepToPlaySoudAgain = 300;
 
     private bool shouldLerp = false;
+
+    [SerializeField] private AudioClip scoreWinAudio = null;
+    private AudioSource scoreWin_AudioSource;
 
     private void Start()
     {
         scoreText.text = "0";
+        scoreWin_AudioSource = GetComponent<AudioSource>();
+        oldValue =  stepToPlaySoudAgain;
     }
 
     // Update is called once per frame
@@ -50,6 +57,12 @@ public class ScoreManager : MonoBehaviour
             shouldLerp = true;
         }
         scoreAnimator.SetTrigger("AddScore");
+
+        if(endValue >= oldValue )
+        {
+            oldValue = oldValue + stepToPlaySoudAgain;
+            scoreWin_AudioSource.PlayOneShot(scoreWinAudio);
+        }
     }
 
     public void RemoveScore(int scoreToRemove)

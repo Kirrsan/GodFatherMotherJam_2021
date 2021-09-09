@@ -133,7 +133,8 @@ MonoBehaviour:
   - {fileID: 0}
   charactersHolder: {fileID: 0}
   timeToWaitToMakeObjectiveAppear: 2
-  _timeClickInteractionIsDisabledOnFail: 2
+  _timeClickInteractionIsDisabledOnFail: 1
+  numberOfCharactersToSpawnOnFail: 50
   audioChrono: {fileID: 8300000, guid: 2b8d6ddd267b27041a9261d2e0fd9088, type: 3}
   audioChronoStart: {fileID: 8300000, guid: d6d4736cd2112774999d7b51e7900d82, type: 3}
   chronostart_AudioSource: {fileID: 0}

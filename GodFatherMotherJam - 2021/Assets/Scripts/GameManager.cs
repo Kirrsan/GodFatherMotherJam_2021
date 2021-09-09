@@ -240,11 +240,13 @@ public class GameManager : MonoBehaviour
         {
             UiManager.SeekIndexAndSetNewObjectives(idToCheck);
 
-            //add score --> ScoreManager ?
+            ScoreManager.AddScore(ObjectsContainerScript.objet[idToCheck].goodObjectValue);
         }
         else
         {
             //make people unhappy
+            ScoreManager.RemoveScore(ObjectsContainerScript.objet[idToCheck].badObjectValue);
+
             _disableObjectInteraction = true;
             Debug.Log("Stop Interaction");
             StartCoroutine(RestoreClickInteractionAfterTime());

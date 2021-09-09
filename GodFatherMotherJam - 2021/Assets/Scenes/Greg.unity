@@ -2835,11 +2835,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68c7643c82c66c41b6a42005e9e75c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  timerMax: 0
+  scoreText: {fileID: 1900938717}
+  scoreAnimator: {fileID: 1900938719}
+  timerMax: 1
   ScoreTextCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -4257,13 +4276,13 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - timeToChangeDifficulty: 10
-    numberOfCharactersOnScreen: 10
+    numberOfCharactersOnScreen: 5
     timeBetweenCharactersSpawns: 0
     numbersOfObjectives: 3
     objectivesTimer: 5
-    characterSpeed: 15
+    characterSpeed: 10
     characterAnimatorSpeed: 1
-    scoreMultiplier: 100
+    scoreMultiplier: 0.75
     eventOnEnterDifficulty:
       m_PersistentCalls:
         m_Calls: []
@@ -4304,138 +4323,138 @@ MonoBehaviour:
   - name: 
     index: 0
     sprite: {fileID: 21300000, guid: f8ad6d77241a0014ea56caae7b6c5748, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 1
     sprite: {fileID: 21300000, guid: b70314de3f29a8f488ed356f7ee821cc, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 2
     sprite: {fileID: 21300000, guid: fbb01be1e10e33d42b90e628e46002ee, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 3
     sprite: {fileID: 21300000, guid: 2047732e792807048b88a819f8b19e62, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 4
     sprite: {fileID: 21300000, guid: 71e0c5be7d9afda49b134802101dbb4d, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 5
     sprite: {fileID: 21300000, guid: 6676794a6cafe1042853f54c7bb2c81a, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 6
     sprite: {fileID: 21300000, guid: 2b3e5876fb73f0040b181f79e5f9cbcb, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 7
     sprite: {fileID: 21300000, guid: cb4be690972a7ae46ba8c65d19eb48e8, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 8
     sprite: {fileID: 21300000, guid: 14ba1f1132aa1b84d99e455b28327d6a, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 9
     sprite: {fileID: 21300000, guid: b44a58323e7f254408cba0e50a6b7bea, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 10
     sprite: {fileID: 21300000, guid: cb9d4e684aacdda4786eec6e43933e94, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 11
     sprite: {fileID: 21300000, guid: 5933b01d2a8ceaf4b8368e2a0e8902ff, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 12
     sprite: {fileID: 21300000, guid: 570e4ef003330f3468f8b78dbef194e2, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 13
     sprite: {fileID: 21300000, guid: bb576d9bc8ae039478387910bd7af2a5, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 14
     sprite: {fileID: 21300000, guid: 087a1335dc9da1842889ea7226572ac0, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 15
     sprite: {fileID: 21300000, guid: ad830720d37fb4e45aafd647936f8ad0, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 16
     sprite: {fileID: 21300000, guid: 5f498fa83ad1748408a203813d939b02, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 17
     sprite: {fileID: 21300000, guid: 9d58431ed3007444f8e2b870bc9f5564, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 18
     sprite: {fileID: 21300000, guid: db65341143307bb41aa613329a4222ec, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 19
     sprite: {fileID: 21300000, guid: c17793a96031aaa47901744e9dc12a95, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 20
     sprite: {fileID: 21300000, guid: 3b069cca880943647a13c45e284b35b4, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 21
     sprite: {fileID: 21300000, guid: 2a81f9fa2fbef5646a67eb25c7457b14, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 22
     sprite: {fileID: 21300000, guid: 3ef0dc28de1ef564191dbb5cc1d66734, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 23
     sprite: {fileID: 21300000, guid: ec4d2ddffcb561346ac600e7fead0c91, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 24
     sprite: {fileID: 21300000, guid: 5452da3fa4283bf4bb7d584c84472900, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 25
     sprite: {fileID: 21300000, guid: 1959804a6727fa54da200095e862f6d4, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
   - name: 
     index: 26
     sprite: {fileID: 21300000, guid: 1959804a6727fa54da200095e862f6d4, type: 3}
-    goodObjectValue: 0
-    badObjectValue: 0
+    goodObjectValue: 50
+    badObjectValue: 50
 --- !u!1 &1237665548
 GameObject:
   m_ObjectHideFlags: 0
@@ -6041,6 +6060,7 @@ GameObject:
   - component: {fileID: 1900938716}
   - component: {fileID: 1900938718}
   - component: {fileID: 1900938717}
+  - component: {fileID: 1900938719}
   m_Layer: 5
   m_Name: score
   m_TagString: Untagged
@@ -6109,6 +6129,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900938715}
   m_CullTransparentMesh: 1
+--- !u!95 &1900938719
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900938715}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c400ea497e8a4ee4e9c2c3a8418b9eee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1925949302
 GameObject:
   m_ObjectHideFlags: 0

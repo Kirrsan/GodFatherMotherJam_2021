@@ -38,9 +38,9 @@ public class UiManager : MonoBehaviour
         //200 - 180 = 20
         //string minutesSeconds = minutesSeconds + " : " + secondes;
         //timerText.text = minutesSeconds;
+        timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(GameManager.Instance.GetChrono() / 60), GameManager.Instance.GetChrono() % 60);
 
-
-        timerText.text = GameManager.Instance.GetChrono().ToString("000");
+        
         UpdateObjectiveTimers();
     }
 

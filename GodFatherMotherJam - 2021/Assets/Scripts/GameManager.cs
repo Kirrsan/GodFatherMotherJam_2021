@@ -91,6 +91,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip audioAuctionner = null;
     public AudioSource audioAuctionner_AudioSource;
 
+    public GameObject decors;
+
 
     private void Awake()
     {
@@ -149,6 +151,7 @@ public class GameManager : MonoBehaviour
         {
             GameFinished();
             chrono_AudioSource.PlayOneShot(audioChrono);
+            decors.SetActive(true);
         }
     }
 

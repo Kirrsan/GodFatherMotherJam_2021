@@ -5,6 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public ObjectInGame associatedObject;
+    public GameObject bid;
 
     [Header("StaysOnScreen")]
     public float timeCharacterStaysOnScreenMin;
@@ -69,6 +70,12 @@ public class Character : MonoBehaviour
     public SpriteRenderer clothesRenderer;
     public SpriteRenderer headRenderer;
 
+
+    [Header("Angry")]
+    public Sprite AngryEyes;
+    public Sprite AngryMouth;
+    public Sprite AngryEyebrows;
+
     public delegate void OnCharacterDisappearEvent(Character newChar);
     public OnCharacterDisappearEvent OnCharacterDisappearance;
 
@@ -114,6 +121,32 @@ public class Character : MonoBehaviour
         headRenderer.sprite = headAvailable[randomHeadIndex];
 
 
+    }
+
+    public void SetupCharacterOnFail(PatrolPoint[] patrolPointArray)
+    {
+        positions = patrolPointArray;
+
+        //random pour chaque liste des parties du corps
+        int randomHairIndex = Random.Range(0, hairAvailable.Length);
+        int randomNoseIndex = Random.Range(0, noseAvailable.Length);
+        int randomEarsIndex = Random.Range(0, earsAvailable.Length);
+        int randomMoustachesIndex = Random.Range(0, moustachesAvailable.Length);
+        int randomNeckIndex = Random.Range(0, neckAvailable.Length);
+        int randomClothesIndex = Random.Range(0, clothesAvailable.Length);
+        int randomHeadIndex = Random.Range(0, headAvailable.Length);
+
+        //assigner le sprite au spriteRenderer correspondant grace � SpriteRenderer.sprite
+        hairRenderer.sprite = hairAvailable[randomHairIndex];
+        noseRenderer.sprite = noseAvailable[randomNoseIndex];
+        eyesRenderer.sprite = AngryEyes;
+        earsRenderer.sprite = earsAvailable[randomEarsIndex];
+        mouthRenderer.sprite = AngryMouth;
+        moustachesRenderer.sprite = moustachesAvailable[randomMoustachesIndex];
+        eyebrowsRenderer.sprite = AngryEyebrows;
+        neckRenderer.sprite = neckAvailable[randomNeckIndex];
+        clothesRenderer.sprite = clothesAvailable[randomClothesIndex];
+        headRenderer.sprite = headAvailable[randomHeadIndex];
     }
 
     // Update is called once per frame
@@ -249,8 +282,25 @@ public class Character : MonoBehaviour
     private void MakeObjectDisappear()
     {
         Destroy(gameObject);
-        OnCharacterDisappearance(this);
-        OnCharacterDisappearance -= GameManager.Instance.RemoveCharFromList;
+        if(OnCharacterDisappearance != null)
+        {
+            OnCharacterDisappearance(this);
+            OnCharacterDisappearance -= GameManager.Instance.RemoveCharFromList;
+        }
+    }
+    #region Angry
+    public void SwitchToAngry()
+    {
+        eyesRenderer.sprite = AngryEyes;
+        mouthRenderer.sprite = AngryMouth;
+        eyebrowsRenderer.sprite = AngryEyebrows;
+    }
+    #endregion
+
+    public void SetTimeToStayOnScreen(float value)
+    {
+        _stayOnScreenTimerMax = value;
+        _hasDeterminedTimerDuration = true;
     }
 
 }

@@ -535,6 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   associatedObject: {fileID: 2425500927948171262}
+  bid: {fileID: 2425500927924017720}
   timeCharacterStaysOnScreenMin: 2
   timeCharacterStaysOnScreenMax: 4
   speed: 15
@@ -669,6 +670,9 @@ MonoBehaviour:
   neckRenderer: {fileID: 7435900016685663402}
   clothesRenderer: {fileID: 8548735962320059480}
   headRenderer: {fileID: 4722017603249855808}
+  AngryEyes: {fileID: 21300000, guid: 1fe915b0284d8d74997d975b5c3c9398, type: 3}
+  AngryMouth: {fileID: 21300000, guid: b5af08b8980d2294480635780fb75ed4, type: 3}
+  AngryEyebrows: {fileID: 21300000, guid: 33fd5a835a98f404cb425c702866daa6, type: 3}
 --- !u!1 &2515891164460346826
 GameObject:
   m_ObjectHideFlags: 0

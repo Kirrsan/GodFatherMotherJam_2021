@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
 
     [Header("On Fail Click")]
     public float _timeClickInteractionIsDisabledOnFail = 2;
+    public int numberOfCharactersToSpawnOnFail = 50;
     private bool _disableObjectInteraction = false;
 
     [SerializeField] private AudioClip audioChrono = null;
@@ -223,7 +224,10 @@ public class GameManager : MonoBehaviour
         newChar.SetupCharacter(patrolPoints);
         newChar.speed = difficultyLevels[_currentDifficultyLevel].characterSpeed;
         newChar.characterAnimator.speed = difficultyLevels[_currentDifficultyLevel].characterAnimatorSpeed;
-
+        if(_disableObjectInteraction)
+        {
+            newChar.bid.SetActive(false);
+        }
         //get a random index from the available object index list
         random = Random.Range(0, objectsAvailableForCharactersList.Count);
 
@@ -251,6 +255,24 @@ public class GameManager : MonoBehaviour
         Debug.Log(_objectIndexAvailable.Count + " available index list count");
     }
 
+
+    private void SpawnCharacterOnFail()
+    {
+        //a changer, on utilisera pas de prefabs, a la place, il va falloir faire du random pour d�terminer les diff�rentes parties du visage du character
+        int random = Random.Range(0, charactersPrefabs.Length);
+
+
+        int randomPos = Random.Range(0, placesToInstantiateCharacters.Length);
+        Character newChar = Instantiate(charactersPrefabs[random], placesToInstantiateCharacters[randomPos].position, Quaternion.identity, charactersHolder).GetComponent<Character>();
+        newChar.SetupCharacterOnFail(patrolPoints);
+        newChar.speed = 30;
+        newChar.characterAnimator.speed = 1.25f;
+        newChar.SetTimeToStayOnScreen(_timeClickInteractionIsDisabledOnFail);
+        if (_disableObjectInteraction)
+        {
+            newChar.bid.SetActive(false);
+        }
+    }
 
 
     public void RemoveCharFromList(Character newChar)
@@ -282,11 +304,27 @@ public class GameManager : MonoBehaviour
             //make people unhappy
             ScoreManager.RemoveScore(ObjectsContainerScript.objet[idToCheck].badObjectValue);
 
+            CharacterFailReaction();
+
             _disableObjectInteraction = true;
             Debug.Log("Stop Interaction");
             StartCoroutine(RestoreClickInteractionAfterTime());
             chrono_AudioSource.clip = audioNegativeHammer;
             chrono_AudioSource.Play();
+        }
+    }
+
+    private void CharacterFailReaction()
+    {
+        int characterListCount = _characterList.Count;
+        for (int i = 0; i < characterListCount; i++)
+        {
+            _characterList[i].bid.SetActive(false);
+        }
+
+        for (int i = 0; i < numberOfCharactersToSpawnOnFail; i++)
+        {
+            SpawnCharacterOnFail();
         }
     }
 
@@ -425,6 +463,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(_timeClickInteractionIsDisabledOnFail);
         Debug.Log("Resume Interaction");
         _disableObjectInteraction = false;
+
+        int characterListCount = _characterList.Count;
+        for (int i = 0; i < characterListCount; i++)
+        {
+            _characterList[i].bid.SetActive(true);
+        }
     }
 
     public bool GetDisableObjectInteraction()

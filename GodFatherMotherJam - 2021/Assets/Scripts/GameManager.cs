@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
 
     public UiManager UiManager;
 
@@ -20,15 +20,22 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public struct DifficultyAccordingToTime
     {
-        public float timeToChangeDifficulty;
-        public int numberOfCharactersOnScreen;
-        public float objectivesTimer;
-        public float characterSpeed;
+        public float timeToChangeDifficulty; //done
+        public int numberOfCharactersOnScreen; //done
+        public float timeBetweenCharactersSpawns; //done
+        public int numbersOfObjectives; //done
+        public float objectivesTimer; //done
+        public float characterSpeed; //done
+        public float characterAnimatorSpeed; //done
+
+        public float scoreMultiplier;
+
+        public UnityEvent eventOnEnterDifficulty; //done
     }    [Header("DifficultyLevels")]
-    public DifficultyAccordingToTime[] difficultyLevels;    private int _currentDifficultyLevel;
+    public DifficultyAccordingToTime[] difficultyLevels;    private int _currentDifficultyLevel = 0;
 
     [Header("Objectives")]
-    public int numberOfStartObjectives = 4;
+    private int numberOfObjectives = 2;
     public float timeToAddToAddedObjectivesCharacters = 5;
     private List<int> _objectiveList = new List<int>();
     private List<ObjectWithCharacter> _objectIndexAvailable = new List<ObjectWithCharacter>();
@@ -51,13 +58,13 @@ public class GameManager : MonoBehaviour
     private List<Character> _characterList = new List<Character>();
 
     [Header("StartSettings")]
-    public int numberOfCharactersToSpawnAtStart = 5;
-    public float timeBetweenStartCharacterSpawns = 0.2f;
+    private int numberOfCharactersToSpawnAtStart = 5;
+    private float timeBetweenStartCharacterSpawns = 0.2f;
     private int _numberOfCharactersSpawnedAtStart = 0;
     private bool _start = true;
 
     [Header("Characters Spawns")]
-    public float TimeBetweenCharacter = 1;
+    public float timeBetweenCharacter = 1;
     public int maxCharactersOnScene = 5;
 
     private float characterSpawnTimer = 0;
@@ -84,6 +91,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _currentTimer = GameDuration;
+        OnDifficultyChange();
 
         int numberOfObjectsTotal = ObjectsContainerScript.objet.Length;
         for (int i = 0; i < numberOfObjectsTotal; i++)
@@ -106,11 +114,53 @@ public class GameManager : MonoBehaviour
         if (!_isGamePlaying) return;
 
         _currentTimer -= Time.deltaTime;
+
+        CheckForDifficulty();
         if(_currentTimer <= 0)
         {
             GameFinished();
         }
     }
+
+    private void CheckForDifficulty()
+    {
+        if (_currentDifficultyLevel >= difficultyLevels.Length - 1) return;
+
+        if(GameDuration - _currentTimer > difficultyLevels[_currentDifficultyLevel + 1].timeToChangeDifficulty)
+        {
+            _currentDifficultyLevel++;
+            OnDifficultyChange();
+        }
+    }
+
+    private void OnDifficultyChange()
+    {
+        difficultyLevels[_currentDifficultyLevel].eventOnEnterDifficulty.Invoke();
+        maxCharactersOnScene = difficultyLevels[_currentDifficultyLevel].numberOfCharactersOnScreen;
+        timeBetweenCharacter = difficultyLevels[_currentDifficultyLevel].timeBetweenCharactersSpawns;
+        ChangeNumberOfObjectives();
+    }
+
+    private void ChangeNumberOfObjectives()
+    {
+        if (numberOfObjectives == difficultyLevels[_currentDifficultyLevel].numbersOfObjectives) return;
+
+        if (numberOfObjectives < difficultyLevels[_currentDifficultyLevel].numbersOfObjectives)
+        {
+            int differenceBetweenNumbers = difficultyLevels[_currentDifficultyLevel].numbersOfObjectives - numberOfObjectives;
+            for (int i = 0; i < differenceBetweenNumbers; i++)
+            {
+                int objectId = AddNewElementToObjectiveList();
+                UiManager.AddImageToObjectiveUi(objectId);
+            }
+        }
+        else if(numberOfObjectives > difficultyLevels[_currentDifficultyLevel].numbersOfObjectives)
+        {
+            int differenceBetweenNumbers = numberOfObjectives - difficultyLevels[_currentDifficultyLevel].numbersOfObjectives;
+            RemoveObjectives(differenceBetweenNumbers);
+        }
+    }
+
     #region character
     private void SpawnCharactersTimer()
     {
@@ -133,7 +183,7 @@ public class GameManager : MonoBehaviour
                 characterSpawnTimer = 0;
             }
         }
-        else if (characterSpawnTimer >= TimeBetweenCharacter)
+        else if (characterSpawnTimer >= timeBetweenCharacter)
         {
             SpawnCharacter();
             characterSpawnTimer = 0;
@@ -149,6 +199,8 @@ public class GameManager : MonoBehaviour
         int randomPos = Random.Range(0, placesToInstantiateCharacters.Length);
         Character newChar = Instantiate(charactersPrefabs[random], placesToInstantiateCharacters[randomPos].position, Quaternion.identity, charactersHolder).GetComponent<Character>();
         newChar.SetupCharacter(patrolPoints);
+        newChar.speed = difficultyLevels[_currentDifficultyLevel].characterSpeed;
+        newChar.characterAnimator.speed = difficultyLevels[_currentDifficultyLevel].characterAnimatorSpeed;
 
         //get a random index from the available object index list
         random = Random.Range(0, objectsAvailableForCharactersList.Count);
@@ -206,7 +258,7 @@ public class GameManager : MonoBehaviour
 
     private void SetupObjectiveList()
     {
-        for (int i = 0; i < numberOfStartObjectives; i++)
+        for (int i = 0; i < numberOfObjectives; i++)
         {
             int objectId = AddNewElementToObjectiveList();
             UiManager.AddImageToObjectiveUi(objectId);
@@ -218,6 +270,16 @@ public class GameManager : MonoBehaviour
         _objectiveList.Remove(idToCheck);
 
         return AddNewElementToObjectiveList();
+    }
+
+    private void RemoveObjectives(int numberOfObjectivesToRemove)
+    {
+        for (int i = 0; i < numberOfObjectivesToRemove; i++)
+        {
+            _objectiveList.RemoveAt(_objectiveList.Count - 1);
+        }
+
+        UiManager.RemoveObjective(numberOfObjectivesToRemove);
     }
 
     public int AddNewElementToObjectiveList()

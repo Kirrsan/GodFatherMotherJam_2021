@@ -42,6 +42,13 @@ public class Character : MonoBehaviour
     private Vector3 _movementDirection;
     private Vector3 _startMovementPos;
 
+    [Header("RandomizedBodyParts")]
+    public float temp;
+    // liste de sprites pour chaque parties du corps
+
+    // spriteRenderer de chaque partie du corps en public
+
+
     public delegate void OnCharacterDisappearEvent(Character newChar);
     public OnCharacterDisappearEvent OnCharacterDisappearance;
 
@@ -61,6 +68,12 @@ public class Character : MonoBehaviour
     public void SetupCharacter(PatrolPoint[] patrolPointArray)
     {
         positions = patrolPointArray;
+
+        //random pour chaque liste des parties du corps
+
+        //assigner le sprite au spriteRenderer correspondant grace à SpriteRenderer.sprite
+
+
     }
 
     // Update is called once per frame

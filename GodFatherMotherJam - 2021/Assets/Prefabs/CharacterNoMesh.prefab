@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7659bda1252f4c040b382eda54503d2f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -179,13 +179,14 @@ GameObject:
   - component: {fileID: 2425500927948171263}
   - component: {fileID: 2425500927948171262}
   - component: {fileID: 2425500927948171261}
+  - component: {fileID: 216183944}
   m_Layer: 0
   m_Name: ObjectToClick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2425500927948171256
 Transform:
   m_ObjectHideFlags: 0
@@ -272,7 +273,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2425500927948171257}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -281,6 +282,54 @@ CircleCollider2D:
   m_Offset: {x: -0.2377302, y: 0.11886067}
   serializedVersion: 2
   m_Radius: 4.849236
+--- !u!60 &216183944
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2425500927948171257}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 7.629149, y: -0.31490195}
+      - {x: 4.35848, y: -3.1139688}
+      - {x: 5.472524, y: 0.9098625}
+      - {x: 3.1025856, y: 4.793705}
+      - {x: -1.5006249, y: 5.979953}
+      - {x: -5.3946958, y: 2.6531897}
+      - {x: -5.483915, y: -2.4709895}
+      - {x: -2.3629484, y: -6.6336074}
+      - {x: -3.2084026, y: -11.0017}
+      - {x: -7.8610086, y: -11.984771}
+      - {x: -11.6011, y: -17.278845}
+      - {x: -11.794179, y: -19.33272}
+      - {x: -10.334559, y: -24.486923}
+      - {x: -6.982075, y: -28.800224}
+      - {x: -4.1709146, y: -30.258202}
+      - {x: -2.436628, y: -31.01348}
+      - {x: 1.7532346, y: -31.15695}
+      - {x: 4.8684006, y: -29.948065}
+      - {x: 8.22315, y: -25.506536}
+      - {x: 9.046798, y: -24.095442}
+      - {x: 9.086718, y: -23.170713}
+      - {x: 15.368474, y: -12.219775}
+      - {x: 14.99733, y: -6.3935695}
 --- !u!1 &2425500929007442129
 GameObject:
   m_ObjectHideFlags: 0

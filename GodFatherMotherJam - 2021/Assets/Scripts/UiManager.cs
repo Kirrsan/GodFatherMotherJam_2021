@@ -90,4 +90,13 @@ public class UiManager : MonoBehaviour
         objectivesTimers.Add(GameManager.Instance.GetCurrentDifficultyLevel().objectivesTimer);
         ++objectiveImageListCount;
     }
+
+    public void RemoveObjective(int numberOfObjectivesToRemove)
+    {
+        for (int i = 0; i < numberOfObjectivesToRemove; i++)
+        {
+            //to change to something better
+            Destroy(ObjectiveUiParent.GetChild(ObjectiveUiParent.childCount - 1).gameObject);
+        }
+    }
 }

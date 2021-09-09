@@ -12,6 +12,13 @@ public class UiManager : MonoBehaviour
     public RectTransform ObjectiveUiParent;
     public GameObject  ImagePrefab;
 
+    [SerializeField] private AudioClip audioObjetRemove = null;
+    private AudioSource objetRemove_AudioSource;
+
+    private void Start()
+    {
+        objetRemove_AudioSource = GetComponent<AudioSource>();
+    }
     private class ImageAndObjectId
     {
         public Image Image;
@@ -51,6 +58,8 @@ public class UiManager : MonoBehaviour
         objectiveImageList[index].objectId = objectId;
         objectivesTimers[index] = GameManager.Instance.GetCurrentDifficultyLevel().objectivesTimer;
         objectivesTimersSliders[index].maxValue = GameManager.Instance.GetCurrentDifficultyLevel().objectivesTimer;
+
+        objetRemove_AudioSource.PlayOneShot(audioObjetRemove);
     }
 
     public void SeekIndexAndSetNewObjectives(int objectId)

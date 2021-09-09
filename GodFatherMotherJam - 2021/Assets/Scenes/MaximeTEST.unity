@@ -3040,6 +3040,7 @@ GameObject:
   m_Component:
   - component: {fileID: 760200301}
   - component: {fileID: 760200300}
+  - component: {fileID: 760200302}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -3086,6 +3087,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  stepToPlaySoudAgain: 100
+  scoreWinAudio: {fileID: 8300000, guid: c83a841b032fe874697e4641e3f34307, type: 3}
 --- !u!4 &760200301
 Transform:
   m_ObjectHideFlags: 0
@@ -3100,6 +3103,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &760200302
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760200299}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &817855887
 GameObject:
   m_ObjectHideFlags: 0
@@ -4487,7 +4586,7 @@ MonoBehaviour:
   UiManager: {fileID: 343967488}
   ScoreManager: {fileID: 760200300}
   ObjectsContainerScript: {fileID: 1226582688}
-  GameDuration: 20
+  GameDuration: 100
   difficultyLevels:
   - timeToChangeDifficulty: 0
     numberOfCharactersOnScreen: 5
@@ -4535,7 +4634,7 @@ MonoBehaviour:
   audioChrono: {fileID: 8300000, guid: 2b8d6ddd267b27041a9261d2e0fd9088, type: 3}
   audioChronoStart: {fileID: 8300000, guid: d6d4736cd2112774999d7b51e7900d82, type: 3}
   chronostart_AudioSource: {fileID: 116969940}
-  audioPositiveHammer: {fileID: 8300000, guid: 1d3871016a5710543b00962e28580d59, type: 3}
+  audioPositiveHammer: {fileID: 8300000, guid: 37898838cfacc594d8e862d8b237b6ee, type: 3}
   audioNegativeHammer: {fileID: 8300000, guid: 5ca1a043504d6df488641e3e991d3a0e, type: 3}
   audioAuctionner: {fileID: 8300000, guid: d5c7b2029f8c886438a2f26a6764df72, type: 3}
   audioAuctionner_AudioSource: {fileID: 172260463}

@@ -2806,6 +2806,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &760200299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 760200301}
+  - component: {fileID: 760200300}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &760200300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760200299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68c7643c82c66c41b6a42005e9e75c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
+  timerMax: 0
+  ScoreTextCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &760200301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760200299}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &817855887
 GameObject:
   m_ObjectHideFlags: 0
@@ -4190,13 +4241,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UiManager: {fileID: 343967488}
+  ScoreManager: {fileID: 760200300}
   ObjectsContainerScript: {fileID: 1226582688}
   GameDuration: 200
   difficultyLevels:
   - timeToChangeDifficulty: 0
     numberOfCharactersOnScreen: 5
     timeBetweenCharactersSpawns: 0.5
-    numbersOfObjectives: 2
+    numbersOfObjectives: 4
     objectivesTimer: 20
     characterSpeed: 15
     characterAnimatorSpeed: 1
@@ -4234,8 +4286,7 @@ MonoBehaviour:
   - {fileID: 281875874}
   - {fileID: 698881854}
   charactersHolder: {fileID: 711858475}
-  timeBetweenCharacter: 0
-  maxCharactersOnScene: 5
+  timeToWaitToMakeObjectiveAppear: 2
   _timeClickInteractionIsDisabledOnFail: 2
 --- !u!114 &1226582688
 MonoBehaviour:
@@ -5228,7 +5279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1647865833
 Transform:
   m_ObjectHideFlags: 0
@@ -6762,18 +6813,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2425500927948171263, guid: 69b7aebb9408b384e9784701cf7d6c83, type: 3}
-      propertyPath: m_Size.x
-      value: 19.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2425500927948171263, guid: 69b7aebb9408b384e9784701cf7d6c83, type: 3}
-      propertyPath: m_Size.y
-      value: 10.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2425500927948171263, guid: 69b7aebb9408b384e9784701cf7d6c83, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2425500929007442128, guid: 69b7aebb9408b384e9784701cf7d6c83, type: 3}
       propertyPath: m_RootOrder
       value: 5

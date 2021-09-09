@@ -10058,10 +10058,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 95123779}
     - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
       propertyPath: patrolPoints.Array.data[10]
       value: 
       objectReference: {fileID: 281875874}
@@ -10101,42 +10097,6 @@ PrefabInstance:
       propertyPath: placesToInstantiateCharacters.Array.data[5]
       value: 
       objectReference: {fileID: 600153331}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.data[3].characterSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.data[4].characterSpeed
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.data[3].objectivesTimer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.data[3].characterAnimatorSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.data[3].timeToChangeDifficulty
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.data[4].characterAnimatorSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.data[4].timeToChangeDifficulty
-      value: 119
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.data[2].numberOfCharactersOnScreen
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
-      propertyPath: difficultyLevels.Array.data[3].numberOfCharactersOnScreen
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4365263950373957149, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
       propertyPath: m_RootOrder
       value: 0

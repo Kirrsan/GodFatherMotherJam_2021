@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4365263950373957148}
   - component: {fileID: 4365263950373957155}
   - component: {fileID: 4365263950373957154}
+  - component: {fileID: 1226582687}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -73,7 +74,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - timeToChangeDifficulty: 60
-    numberOfCharactersOnScreen: 10
+    numberOfCharactersOnScreen: 8
     timeBetweenCharactersSpawns: 0
     numbersOfObjectives: 3
     objectivesTimer: 10
@@ -83,8 +84,8 @@ MonoBehaviour:
     eventOnEnterDifficulty:
       m_PersistentCalls:
         m_Calls: []
-  - timeToChangeDifficulty: 120
-    numberOfCharactersOnScreen: 15
+  - timeToChangeDifficulty: 100
+    numberOfCharactersOnScreen: 10
     timeBetweenCharactersSpawns: 0
     numbersOfObjectives: 3
     objectivesTimer: 10
@@ -94,13 +95,13 @@ MonoBehaviour:
     eventOnEnterDifficulty:
       m_PersistentCalls:
         m_Calls: []
-  - timeToChangeDifficulty: 100
+  - timeToChangeDifficulty: 119
     numberOfCharactersOnScreen: 20
     timeBetweenCharactersSpawns: 0
     numbersOfObjectives: 3
     objectivesTimer: 10
-    characterSpeed: 20
-    characterAnimatorSpeed: 1
+    characterSpeed: 30
+    characterAnimatorSpeed: 3
     scoreMultiplier: 1
     eventOnEnterDifficulty:
       m_PersistentCalls:
@@ -384,3 +385,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1226582687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365263950373957150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aa26b5232b05324d839193d76b0645a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTex: {fileID: 2800000, guid: 409b724ee77584b43aeaddf69b72f02d, type: 3}

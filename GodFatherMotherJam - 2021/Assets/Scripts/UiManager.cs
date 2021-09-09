@@ -26,6 +26,20 @@ public class UiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //float currentTime = GameManager.Instance.GetChrono().ToString("000");
+        //float convertedTime = Converted minutes et secondes;
+        //200 en minutes secondes --> 3 mins 20 sec
+        //1 min = 60 sec 
+        //t'auras besoin d'un reste
+        //division
+        //200/60 = 3,quelquechose
+        //3 --> 60 * 3 = 180
+        //200 - 180 = 20
+        //string minutesSeconds = minutesSeconds + " : " + secondes;
+        //timerText.text = minutesSeconds;
+
+
         timerText.text = GameManager.Instance.GetChrono().ToString("000");
         UpdateObjectiveTimers();
     }

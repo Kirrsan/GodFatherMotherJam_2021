@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public string sceneToLoad = "";
+
+
     public void Play()
     {
-        SceneManager.LoadScene("Greg");
+        SceneManager.LoadScene(sceneToLoad);
     }
     public void Quit()
     {

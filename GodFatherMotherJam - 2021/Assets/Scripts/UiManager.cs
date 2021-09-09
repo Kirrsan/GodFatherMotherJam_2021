@@ -26,7 +26,7 @@ public class UiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timerText.text = GameManager.Instance.GetChrono().ToString();
+        timerText.text = GameManager.Instance.GetChrono().ToString("000");
         UpdateObjectiveTimers();
     }
 

@@ -7,8 +7,10 @@ public class Character : MonoBehaviour
     public ObjectInGame associatedObject;
 
     [Header("StaysOnScreen")]
-    public float timeCharacterStaysOnScreenMin;
-    public float timeCharacterStaysOnScreenMax;
+    public float DistanceFromCurrentDifficultyObjectiveTimerMin = 3;
+    public float DistanceFromCurrentDifficultyObjectiveTimerMax = 3;
+    private float timeCharacterStaysOnScreenMin;
+    private float timeCharacterStaysOnScreenMax;
     private float _stayOnScreenTimer = 0;
     private float _stayOnScreenTimerMax = 0;
     private bool _hasDeterminedTimerDuration = false;
@@ -83,6 +85,9 @@ public class Character : MonoBehaviour
             _positionsAvailable.Add(i);
         }
         NextPatrolStepToSelect();
+
+        timeCharacterStaysOnScreenMin = GameManager.Instance.GetCurrentDifficultyLevel().objectivesTimer - DistanceFromCurrentDifficultyObjectiveTimerMin;
+        timeCharacterStaysOnScreenMax = GameManager.Instance.GetCurrentDifficultyLevel().objectivesTimer + DistanceFromCurrentDifficultyObjectiveTimerMax;
     }
 
     public void SetupCharacter(PatrolPoint[] patrolPointArray)

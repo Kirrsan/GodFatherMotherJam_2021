@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+
+    public UiManager UiManager;
+
     [Header("Objects")]
     public ObjectContainer ObjectsContainerScript;
 
@@ -14,8 +17,15 @@ public class GameManager : MonoBehaviour
     public float GameDuration = 20;
     private float _currentTimer = 0;
     private bool _isGamePlaying = true;
-    
-
+    [System.Serializable]
+    public struct DifficultyAccordingToTime
+    {
+        public float timeToChangeDifficulty;
+        public int numberOfCharactersOnScreen;
+        public float objectivesTimer;
+        public float characterSpeed;
+    }    [Header("DifficultyLevels")]
+    public DifficultyAccordingToTime[] difficultyLevels;    private int _currentDifficultyLevel;
 
     [Header("Objectives")]
     public int numberOfStartObjectives = 4;
@@ -181,13 +191,9 @@ public class GameManager : MonoBehaviour
     {
         if(_objectiveList.Contains(idToCheck))
         {
-            //remove id and object from objective list
-            _objectiveList.Remove(idToCheck);
-
-            AddNewElementToObjectiveList();
+            UiManager.SeekIndexAndSetNewObjectives(idToCheck);
 
             //add score --> ScoreManager ?
-            //add new object to objective list? (check if it's by timer or just when one has been removed)
         }
         else
         {
@@ -202,14 +208,19 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < numberOfStartObjectives; i++)
         {
-            AddNewElementToObjectiveList();
-            //UI manager gets sprite form the random int calculated;
-
-            //Show objective sprite UI;
+            int objectId = AddNewElementToObjectiveList();
+            UiManager.AddImageToObjectiveUi(objectId);
         }
     }
 
-    public void AddNewElementToObjectiveList()
+    public int RemoveObjectiveAndGetANewOne(int idToCheck)
+    {
+        _objectiveList.Remove(idToCheck);
+
+        return AddNewElementToObjectiveList();
+    }
+
+    public int AddNewElementToObjectiveList()
     {
 
         List<ObjectWithCharacter> objWithChar = new List<ObjectWithCharacter>();
@@ -236,6 +247,8 @@ public class GameManager : MonoBehaviour
 
         _objectIndexAvailable[random].character.AddTimeToStayOnScreenTimer(timeToAddToAddedObjectivesCharacters);
         _objectIndexAvailable.RemoveAt(random);
+
+        return _objectiveList[_objectiveList.Count - 1];
     }
     #endregion
 
@@ -266,5 +279,15 @@ public class GameManager : MonoBehaviour
         return _isGamePlaying;
     }
     #endregion
+
+    public float GetChrono()
+    {
+        return _currentTimer;
+    }
+
+    public DifficultyAccordingToTime GetCurrentDifficultyLevel()
+    {
+        return difficultyLevels[_currentDifficultyLevel];
+    }
 
 }

@@ -76,7 +76,11 @@ public class GameManager : MonoBehaviour
     public float _timeClickInteractionIsDisabledOnFail = 2;
     private bool _disableObjectInteraction = false;
 
+    [SerializeField] private AudioClip audioChrono = null;
+    private AudioSource chrono_AudioSource;
 
+      [SerializeField] private AudioClip audioaudioPositiveHammer = null;
+    private AudioSource PositiveHammer_AudioSource;
 
     private void Awake()
     {
@@ -88,6 +92,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        chrono_AudioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -124,6 +130,7 @@ public class GameManager : MonoBehaviour
         if(_currentTimer <= 0)
         {
             GameFinished();
+            chrono_AudioSource.PlayOneShot(audioChrono);
         }
     }
 

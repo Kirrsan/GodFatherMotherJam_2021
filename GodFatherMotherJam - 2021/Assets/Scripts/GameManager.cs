@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public UiManager UiManager;
+    public ScoreManager ScoreManager;
 
     [Header("Objects")]
     public ObjectContainer ObjectsContainerScript;
@@ -16,7 +17,8 @@ public class GameManager : MonoBehaviour
     [Header("Timer")]
     public float GameDuration = 20;
     private float _currentTimer = 0;
-    private bool _isGamePlaying = true;
+    private bool _isGamePlaying = true;
+
     [System.Serializable]
     public struct DifficultyAccordingToTime
     {
@@ -28,20 +30,24 @@ public class GameManager : MonoBehaviour
         public float characterSpeed; //done
         public float characterAnimatorSpeed; //done
 
-        public float scoreMultiplier;
+        public float scoreMultiplier; // done
 
         public UnityEvent eventOnEnterDifficulty; //done
-    }    [Header("DifficultyLevels")]
-    public DifficultyAccordingToTime[] difficultyLevels;    private int _currentDifficultyLevel = 0;
-
+    }
+
+    [Header("DifficultyLevels")]
+    public DifficultyAccordingToTime[] difficultyLevels;
+    private int _currentDifficultyLevel = 0;
+
+
     [Header("Objectives")]
-    private int numberOfObjectives = 2;
+    private int numberOfObjectives = 0;
     public float timeToAddToAddedObjectivesCharacters = 5;
     private List<int> _objectiveList = new List<int>();
     private List<ObjectWithCharacter> _objectIndexAvailable = new List<ObjectWithCharacter>();
 
     private List<int> objectsAvailableForCharactersList = new List<int>();
-
+    private bool _isObjectiveSetupInGame = false;
 
 
     private struct ObjectWithCharacter
@@ -58,14 +64,11 @@ public class GameManager : MonoBehaviour
     private List<Character> _characterList = new List<Character>();
 
     [Header("StartSettings")]
-    private int numberOfCharactersToSpawnAtStart = 5;
-    private float timeBetweenStartCharacterSpawns = 0.2f;
-    private int _numberOfCharactersSpawnedAtStart = 0;
-    private bool _start = true;
+    public float timeToWaitToMakeObjectiveAppear = 2;
 
     [Header("Characters Spawns")]
-    public float timeBetweenCharacter = 1;
-    public int maxCharactersOnScene = 5;
+    private float timeBetweenCharacter = 1;
+    private int maxCharactersOnScene = 5;
 
     private float characterSpawnTimer = 0;
 
@@ -98,6 +101,8 @@ public class GameManager : MonoBehaviour
         {
             objectsAvailableForCharactersList.Add(ObjectsContainerScript.objet[i].index);
         }
+
+        StartCoroutine(ShowObjectiveListAfterDelay());
     }
 
 
@@ -138,11 +143,14 @@ public class GameManager : MonoBehaviour
         difficultyLevels[_currentDifficultyLevel].eventOnEnterDifficulty.Invoke();
         maxCharactersOnScene = difficultyLevels[_currentDifficultyLevel].numberOfCharactersOnScreen;
         timeBetweenCharacter = difficultyLevels[_currentDifficultyLevel].timeBetweenCharactersSpawns;
+        ScoreManager.SetScoreMultiplier(difficultyLevels[_currentDifficultyLevel].scoreMultiplier);
         ChangeNumberOfObjectives();
     }
 
     private void ChangeNumberOfObjectives()
     {
+        if (!_isObjectiveSetupInGame) return;
+
         if (numberOfObjectives == difficultyLevels[_currentDifficultyLevel].numbersOfObjectives) return;
 
         if (numberOfObjectives < difficultyLevels[_currentDifficultyLevel].numbersOfObjectives)
@@ -159,6 +167,7 @@ public class GameManager : MonoBehaviour
             int differenceBetweenNumbers = numberOfObjectives - difficultyLevels[_currentDifficultyLevel].numbersOfObjectives;
             RemoveObjectives(differenceBetweenNumbers);
         }
+        numberOfObjectives = difficultyLevels[_currentDifficultyLevel].numbersOfObjectives;
     }
 
     #region character
@@ -168,22 +177,7 @@ public class GameManager : MonoBehaviour
 
 
         characterSpawnTimer += Time.deltaTime;
-        if(_start)
-        {
-            if(characterSpawnTimer >= timeBetweenStartCharacterSpawns)
-            {
-                SpawnCharacter();
-                ++_numberOfCharactersSpawnedAtStart;
-                if(_numberOfCharactersSpawnedAtStart >= numberOfCharactersToSpawnAtStart)
-                {
-                    _start = false;
-
-                    SetupObjectiveList();
-                }
-                characterSpawnTimer = 0;
-            }
-        }
-        else if (characterSpawnTimer >= timeBetweenCharacter)
+        if (characterSpawnTimer >= timeBetweenCharacter)
         {
             SpawnCharacter();
             characterSpawnTimer = 0;
@@ -226,6 +220,7 @@ public class GameManager : MonoBehaviour
         newObjectWithChar.ObjectIndex = objectToUse.index;  
         newObjectWithChar.character = newChar;  
         _objectIndexAvailable.Add(newObjectWithChar);
+        Debug.Log(_objectIndexAvailable.Count + " available index list count");
     }
 
 
@@ -256,13 +251,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator ShowObjectiveListAfterDelay()
+    {
+        yield return new WaitForSeconds(timeToWaitToMakeObjectiveAppear);
+        SetupObjectiveList();
+    }
+
     private void SetupObjectiveList()
     {
-        for (int i = 0; i < numberOfObjectives; i++)
+        for (int i = 0; i < difficultyLevels[_currentDifficultyLevel].numbersOfObjectives; i++)
         {
             int objectId = AddNewElementToObjectiveList();
             UiManager.AddImageToObjectiveUi(objectId);
         }
+        numberOfObjectives = difficultyLevels[_currentDifficultyLevel].numbersOfObjectives;
+        _isObjectiveSetupInGame = true;
     }
 
     public int RemoveObjectiveAndGetANewOne(int idToCheck)
@@ -284,6 +287,7 @@ public class GameManager : MonoBehaviour
 
     public int AddNewElementToObjectiveList()
     {
+        Debug.Log(_objectIndexAvailable.Count + "Start object Available Count");
 
         List<ObjectWithCharacter> objWithChar = new List<ObjectWithCharacter>();
 
@@ -295,6 +299,7 @@ public class GameManager : MonoBehaviour
             objWithChar.Add(_objectIndexAvailable[i]);
             _objectIndexAvailable.Remove(_objectIndexAvailable[i]);
         }
+        Debug.Log(objWithChar.Count + "Start  objWithChar Count");
 
         int random = Random.Range(0, _objectIndexAvailable.Count);
 
@@ -305,10 +310,16 @@ public class GameManager : MonoBehaviour
             _objectIndexAvailable.Add(objWithChar[i]);
         }
 
+        Debug.Log(_objectIndexAvailable.Count + "objectAVailableCount        " + random + " random");
+
         _objectiveList.Add(_objectIndexAvailable[random].ObjectIndex);
 
         _objectIndexAvailable[random].character.AddTimeToStayOnScreenTimer(timeToAddToAddedObjectivesCharacters);
         _objectIndexAvailable.RemoveAt(random);
+        Debug.Log(_objectiveList.Count - 1);
+
+
+        Debug.Log(_objectiveList.Count - 1);
 
         return _objectiveList[_objectiveList.Count - 1];
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7635,11 +7635,11 @@ PrefabInstance:
       objectReference: {fileID: 12800000, guid: ebe55b183e9e04ac0b7ff606e49eb610, type: 3}
     - target: {fileID: 1120824319027703285, guid: 3484b159cec06344a9f631516e6560ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1120824319027703285, guid: 3484b159cec06344a9f631516e6560ce, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 307
+      value: -135
       objectReference: {fileID: 0}
     - target: {fileID: 1120824319276358264, guid: 3484b159cec06344a9f631516e6560ce, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7768,6 +7768,10 @@ PrefabInstance:
     - target: {fileID: 3063018933651519151, guid: 3484b159cec06344a9f631516e6560ce, type: 3}
       propertyPath: m_Name
       value: CanvasMenuFin
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063018933651519151, guid: 3484b159cec06344a9f631516e6560ce, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3063018933651519186, guid: 3484b159cec06344a9f631516e6560ce, type: 3}
       propertyPath: m_SortingOrder
@@ -9081,7 +9085,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh111308
+  m_Name: pb_Mesh30238
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10255,7 +10259,7 @@ PrefabInstance:
       objectReference: {fileID: 1931477713}
     - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
       propertyPath: GameDuration
-      value: 5
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 4365263950373957148, guid: 0195d4b5a3e7f46548874f876bcc3a80, type: 3}
       propertyPath: ScoreManager

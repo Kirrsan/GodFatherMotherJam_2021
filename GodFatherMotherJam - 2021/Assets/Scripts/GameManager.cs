@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -94,6 +95,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject decors;
 
+    public Text scoreFinal;
+
 
     private void Awake()
     {
@@ -153,6 +156,10 @@ public class GameManager : MonoBehaviour
             GameFinished();
             chrono_AudioSource.PlayOneShot(audioChrono);
             decors.SetActive(true);
+            
+            scoreFinal.text = ScoreManager.GetScore().ToString();
+
+
         }
     }
 

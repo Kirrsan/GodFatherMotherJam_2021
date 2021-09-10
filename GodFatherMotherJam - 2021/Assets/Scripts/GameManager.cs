@@ -17,8 +17,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Timer")]
     public float GameDuration = 20;
+    public Animator timerAnim;
     private float _currentTimer = 0;
     private bool _isGamePlaying = true;
+    private bool _hasStartedTimerAnim = false;
 
     [System.Serializable]
     public struct DifficultyAccordingToTime
@@ -151,6 +153,13 @@ public class GameManager : MonoBehaviour
         //chronostart_AudioSource.Play();
 
         CheckForDifficulty();
+
+        if(!_hasStartedTimerAnim && _currentTimer <= 10)
+        {
+            timerAnim.SetTrigger("End");
+            _hasStartedTimerAnim = true;
+        }
+
         if(_currentTimer <= 0)
         {
             GameFinished();
@@ -259,7 +268,6 @@ public class GameManager : MonoBehaviour
         newObjectWithChar.ObjectIndex = objectToUse.index;  
         newObjectWithChar.character = newChar;  
         _objectIndexAvailable.Add(newObjectWithChar);
-        Debug.Log(_objectIndexAvailable.Count + " available index list count");
     }
 
 
@@ -302,6 +310,20 @@ public class GameManager : MonoBehaviour
         {
             UiManager.SeekIndexAndSetNewObjectives(idToCheck);
 
+            //get position of character 
+            int count = _characterList.Count;
+            Vector3 InstantiatePos = Vector3.zero;
+            for (int i = 0; i < count; i++)
+            {
+                if(_characterList[i].associatedObject.id == idToCheck)
+                {
+                    InstantiatePos = _characterList[i].transform.position;
+                }
+            }
+
+            Instantiate(charactersPrefabs[0], InstantiatePos, Quaternion.identity);
+            //end get pos of char
+
             ScoreManager.AddScore(ObjectsContainerScript.objet[idToCheck].goodObjectValue);
             chrono_AudioSource.clip = audioPositiveHammer ;
             chrono_AudioSource.Play();
@@ -314,7 +336,6 @@ public class GameManager : MonoBehaviour
             CharacterFailReaction();
 
             _disableObjectInteraction = true;
-            Debug.Log("Stop Interaction");
             StartCoroutine(RestoreClickInteractionAfterTime());
             chrono_AudioSource.clip = audioNegativeHammer;
             chrono_AudioSource.Play();
@@ -371,8 +392,6 @@ public class GameManager : MonoBehaviour
 
     public int AddNewElementToObjectiveList()
     {
-        Debug.Log(_objectIndexAvailable.Count + "Start object Available Count");
-
         List<ObjectWithCharacter> objWithChar = new List<ObjectWithCharacter>();
 
         int indexAvailableListCount = _objectIndexAvailable.Count;
@@ -383,7 +402,6 @@ public class GameManager : MonoBehaviour
             objWithChar.Add(_objectIndexAvailable[i]);
             _objectIndexAvailable.Remove(_objectIndexAvailable[i]);
         }
-        Debug.Log(objWithChar.Count + "Start  objWithChar Count");
 
         int random = Random.Range(0, _objectIndexAvailable.Count);
 
@@ -394,16 +412,10 @@ public class GameManager : MonoBehaviour
             _objectIndexAvailable.Add(objWithChar[i]);
         }
 
-        Debug.Log(_objectIndexAvailable.Count + "objectAVailableCount        " + random + " random");
-
         _objectiveList.Add(_objectIndexAvailable[random].ObjectIndex);
 
         _objectIndexAvailable[random].character.AddTimeToStayOnScreenTimer(timeToAddToAddedObjectivesCharacters);
         _objectIndexAvailable.RemoveAt(random);
-        Debug.Log(_objectiveList.Count - 1);
-
-
-        Debug.Log(_objectiveList.Count - 1);
 
         return _objectiveList[_objectiveList.Count - 1];
     }
@@ -455,9 +467,7 @@ public class GameManager : MonoBehaviour
             newObjWithChar.character = _characterList[i];
             newObjWithChar.ObjectIndex = _characterList[i].associatedObject.id;
 
-
             _objectIndexAvailable.Add(newObjWithChar);
-
         }
     }
 

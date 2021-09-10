@@ -60,7 +60,7 @@ public class ScoreParticlesScript : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject.transform.parent);
+            Destroy(gameObject.transform.parent.gameObject);
         }
     }
 }

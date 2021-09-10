@@ -153,7 +153,6 @@ public class GameManager : MonoBehaviour
 
         if(!_hasStartedTimerAnim && _currentTimer <= 10)
         {
-            Debug.Log("end timer anim");
             timerAnim.SetTrigger("End");
             _hasStartedTimerAnim = true;
         }

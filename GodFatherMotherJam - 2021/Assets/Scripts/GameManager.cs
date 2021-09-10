@@ -103,6 +103,9 @@ public class GameManager : MonoBehaviour
 
     public Text scoreFinal;
 
+    public float TimeToWaitForEndScreen = 5f;
+
+    private bool hasCoroutineBeenCalled = false;
 
     private void Awake()
     {
@@ -168,14 +171,25 @@ public class GameManager : MonoBehaviour
         {
             GameFinished();
             chrono_AudioSource.PlayOneShot(audioChrono);
-            decors.SetActive(true);
+
+            if(hasCoroutineBeenCalled == false)
+
+            {
+                StartCoroutine(activateEndScreen());
+                hasCoroutineBeenCalled = true;
+            }
             
-            scoreFinal.text = ScoreManager.GetScore().ToString();
 
 
         }
     }
+    private IEnumerator activateEndScreen ()
+    {
 
+        yield return new WaitForSeconds(TimeToWaitForEndScreen);
+        decors.SetActive(true);
+        scoreFinal.text = ScoreManager.GetScore().ToString();
+    }
     private void CheckForDifficulty()
     {
         if (_currentDifficultyLevel >= difficultyLevels.Length - 1) return;

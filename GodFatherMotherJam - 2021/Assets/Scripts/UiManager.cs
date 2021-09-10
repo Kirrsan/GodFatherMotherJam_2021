@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UiManager : MonoBehaviour
 {
     public Text timerText;
-
+    private bool timerEnded = false;
 
     [Header("ObjectiveUI")]
     public RectTransform ObjectiveUiParent;
@@ -33,7 +33,17 @@ public class UiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(GameManager.Instance.GetChrono() / 60), GameManager.Instance.GetChrono() % 60);
+        if (timerEnded) return;
+
+        if(GameManager.Instance.GetChrono() > 0)
+        {
+            timerText.text = string.Format("{0:0}:{1:00}", Mathf.Floor(GameManager.Instance.GetChrono() / 60), Mathf.Floor(GameManager.Instance.GetChrono() % 60));
+        }
+        else
+        {
+            timerText.text = "0:00";
+            timerEnded = true;
+        }
         UpdateObjectiveTimers();
     }
 

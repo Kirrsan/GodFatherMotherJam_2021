@@ -78,7 +78,10 @@ public class GameManager : MonoBehaviour
     public float _timeClickInteractionIsDisabledOnFail = 2;
     public int numberOfCharactersToSpawnOnFail = 50;
     private bool _disableObjectInteraction = false;
+    public GameObject coinParticle;
+    public GameObject angryParticle;
 
+    [Header("Audio")]
     [SerializeField] private AudioClip audioChrono = null;
     private AudioSource chrono_AudioSource;
 
@@ -93,6 +96,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private AudioClip audioAuctionner = null;
     public AudioSource audioAuctionner_AudioSource;
+
 
     public GameObject decors;
 
@@ -314,7 +318,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            Instantiate(charactersPrefabs[0], InstantiatePos, Quaternion.identity);
+            Instantiate(coinParticle, InstantiatePos, Quaternion.identity);
             //end get pos of char
 
             ScoreManager.AddScore(ObjectsContainerScript.objet[idToCheck].goodObjectValue);

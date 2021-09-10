@@ -303,6 +303,20 @@ public class GameManager : MonoBehaviour
         {
             UiManager.SeekIndexAndSetNewObjectives(idToCheck);
 
+            //get position of character 
+            int count = _characterList.Count;
+            Vector3 InstantiatePos = Vector3.zero;
+            for (int i = 0; i < count; i++)
+            {
+                if(_characterList[i].associatedObject.id == idToCheck)
+                {
+                    InstantiatePos = _characterList[i].transform.position;
+                }
+            }
+
+            Instantiate(charactersPrefabs[0], InstantiatePos, Quaternion.identity);
+            //end get pos of char
+
             ScoreManager.AddScore(ObjectsContainerScript.objet[idToCheck].goodObjectValue);
             chrono_AudioSource.clip = audioPositiveHammer ;
             chrono_AudioSource.Play();

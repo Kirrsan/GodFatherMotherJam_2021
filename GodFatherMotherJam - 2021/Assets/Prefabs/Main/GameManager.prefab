@@ -50,6 +50,7 @@ MonoBehaviour:
   ScoreManager: {fileID: 0}
   ObjectsContainerScript: {fileID: 4365263950373957155}
   GameDuration: 120
+  timerAnim: {fileID: 0}
   difficultyLevels:
   - timeToChangeDifficulty: 0
     numberOfCharactersOnScreen: 5
@@ -133,8 +134,12 @@ MonoBehaviour:
   - {fileID: 0}
   charactersHolder: {fileID: 0}
   timeToWaitToMakeObjectiveAppear: 2
+  coinParticle: {fileID: 6294809193346700805, guid: 1b752e1d11db44c768fde1ca7dc74c47, type: 3}
+  coinFailParticle: {fileID: 6294809193346700805, guid: 64c19fce77580460bb076a9567026d0d, type: 3}
+  flyingScoreText: {fileID: 4118912434762149269, guid: a6c20f00f781d6e43ac291db7ff29d07, type: 3}
   _timeClickInteractionIsDisabledOnFail: 1
   numberOfCharactersToSpawnOnFail: 50
+  angryParticle: {fileID: 0}
   audioChrono: {fileID: 8300000, guid: 2b8d6ddd267b27041a9261d2e0fd9088, type: 3}
   audioChronoStart: {fileID: 8300000, guid: d6d4736cd2112774999d7b51e7900d82, type: 3}
   chronostart_AudioSource: {fileID: 0}
@@ -142,6 +147,8 @@ MonoBehaviour:
   audioNegativeHammer: {fileID: 8300000, guid: cf377ed00f21c452ebfb991c46a1ca53, type: 3}
   audioAuctionner: {fileID: 8300000, guid: d5c7b2029f8c886438a2f26a6764df72, type: 3}
   audioAuctionner_AudioSource: {fileID: 0}
+  decors: {fileID: 0}
+  scoreFinal: {fileID: 0}
 --- !u!114 &4365263950373957155
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -75,12 +75,16 @@ public class GameManager : MonoBehaviour
 
     private float characterSpawnTimer = 0;
 
+    [Header("OnClick")]
+    public GameObject coinParticle;
+    public GameObject coinFailParticle;
+    public GameObject flyingScoreText;
+
+
     [Header("On Fail Click")]
     public float _timeClickInteractionIsDisabledOnFail = 2;
     public int numberOfCharactersToSpawnOnFail = 50;
     private bool _disableObjectInteraction = false;
-    public GameObject coinParticle;
-    public GameObject angryParticle;
 
     [Header("Audio")]
     [SerializeField] private AudioClip audioChrono = null;
@@ -326,6 +330,8 @@ public class GameManager : MonoBehaviour
             }
 
             Instantiate(coinParticle, InstantiatePos, Quaternion.identity);
+            ScoreParticlesScript flyingText = Instantiate(flyingScoreText, InstantiatePos, Quaternion.identity).transform.GetChild(0).GetComponent<ScoreParticlesScript>();
+            flyingText.Setup(true, ObjectsContainerScript.objet[idToCheck].goodObjectValue);
             //end get pos of char
 
             ScoreManager.AddScore(ObjectsContainerScript.objet[idToCheck].goodObjectValue);
@@ -338,6 +344,22 @@ public class GameManager : MonoBehaviour
             ScoreManager.RemoveScore(ObjectsContainerScript.objet[idToCheck].badObjectValue);
 
             CharacterFailReaction();
+
+            //get position of character 
+            int count = _characterList.Count;
+            Vector3 InstantiatePos = Vector3.zero;
+            for (int i = 0; i < count; i++)
+            {
+                if (_characterList[i].associatedObject.id == idToCheck)
+                {
+                    InstantiatePos = _characterList[i].transform.position;
+                }
+            }
+
+            Instantiate(coinFailParticle, InstantiatePos, Quaternion.identity);
+            ScoreParticlesScript flyingText = Instantiate(flyingScoreText, InstantiatePos, Quaternion.identity).transform.GetChild(0).GetComponent<ScoreParticlesScript>();
+            flyingText.Setup(false, -ObjectsContainerScript.objet[idToCheck].badObjectValue);
+            //end get pos of char
 
             _disableObjectInteraction = true;
             StartCoroutine(RestoreClickInteractionAfterTime());

@@ -784,6 +784,7 @@ GameObject:
   - component: {fileID: 8808385456864202800}
   - component: {fileID: 8808385456864202801}
   - component: {fileID: 8808385456864202807}
+  - component: {fileID: 555799395401495398}
   m_Layer: 5
   m_Name: chronos
   m_TagString: Untagged
@@ -948,6 +949,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &555799395401495398
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8808385456864202803}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e8cb57622e3c3c4cb2ad850251a8c6b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8808385456883906722
 GameObject:
   m_ObjectHideFlags: 0
